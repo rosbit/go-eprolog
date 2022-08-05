@@ -5,9 +5,9 @@ import (
 	"bytes"
 )
 
-func (p *Prolog) Query(goal string, args ...interface{}) (it <-chan map[string]interface{}, ok bool, err error) {
-	if len(goal) == 0 {
-		err = fmt.Errorf("goal expected")
+func (p *Prolog) Query(predict string, args ...interface{}) (it <-chan map[string]interface{}, ok bool, err error) {
+	if len(predict) == 0 {
+		err = fmt.Errorf("predict expected")
 		return
 	}
 
@@ -27,7 +27,7 @@ func (p *Prolog) Query(goal string, args ...interface{}) (it <-chan map[string]i
 		return
 	}
 
-	return p.doQuery(goal, argc, strArgs, argv, vars)
+	return p.doQuery(predict, argc, strArgs, argv, vars)
 }
 
 func makeGoalArgs(args ...interface{}) (argc int, strArgs string, argv []interface{}, vars map[string]interface{}, err error) {
@@ -74,8 +74,8 @@ func makeGoalArgs(args ...interface{}) (argc int, strArgs string, argv []interfa
 	return
 }
 
-func (p *Prolog) doQuery(goal string, argc int, strArgs string, argv []interface{}, vars map[string]interface{}) (it <-chan map[string]interface{}, ok bool, err error) {
-	realGoal := fmt.Sprintf("%s(%s).", goal, strArgs)
+func (p *Prolog) doQuery(predict string, argc int, strArgs string, argv []interface{}, vars map[string]interface{}) (it <-chan map[string]interface{}, ok bool, err error) {
+	realGoal := fmt.Sprintf("%s(%s).", predict, strArgs)
 	sols, e := p.i.Query(realGoal, argv...)
 	if e != nil {
 		err = e

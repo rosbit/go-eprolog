@@ -9,14 +9,14 @@ import (
 
 func main() {
 	if len(os.Args) < 3 {
-		fmt.Printf("Usage: %s <prolog-file> <goal>[ <args>...]\n", os.Args[0])
+		fmt.Printf("Usage: %s <prolog-file> <predict>[ <args>...]\n", os.Args[0])
 		return
 	}
 
 	// 1. init prolog
 	ctx := pl.NewProlog()
 
-	plFile, goal := os.Args[1], os.Args[2]
+	plFile, predict := os.Args[1], os.Args[2]
 	// 2. consult prolog script file
 	if err := ctx.LoadFile(plFile); err != nil {
 		fmt.Printf("%v\n", err)
@@ -35,12 +35,12 @@ func main() {
 	}
 
 	// 4. query the goal with arguments and variables
-	it, ok, err := ctx.Query(goal, args...)
+	it, ok, err := ctx.Query(predict, args...)
 
 	// 5. check the result
 	//  5.1 error checking
 	if err != nil {
-		fmt.Printf("failed to query %s: %v\n", goal, err)
+		fmt.Printf("failed to query %s: %v\n", predict, err)
 		return
 	}
 	//  5.2 proving checking with result `false`
