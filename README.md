@@ -69,7 +69,7 @@ one can load the script like this:
 #### 4. Query the goal with arguments and variables
 
 ```go
-   rs, ok, err := ctx.Query("listen", args...)
+   solutions, ok, err := ctx.Query("listen", args...)
 ```
 
 #### 5. Check the result
@@ -88,14 +88,14 @@ one can load the script like this:
    }
 
    // proving checking with result `true`
-   if rs == nil {
+   if solutions == nil {
       // the result is true
       return
    }
 
-   // result set processing
-   for res := range rs {
-      fmt.Printf("res: %#v\n", res)
+   // solutions processing
+   for sol := range solutions {
+      fmt.Printf("solution: %#v\n", sol)
    }
 ```
 

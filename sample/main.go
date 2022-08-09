@@ -35,7 +35,7 @@ func main() {
 	}
 
 	// 4. query the goal with arguments and variables
-	it, ok, err := ctx.Query(predict, args...)
+	solutions, ok, err := ctx.Query(predict, args...)
 
 	// 5. check the result
 	//  5.1 error checking
@@ -49,16 +49,16 @@ func main() {
 		return
 	}
 	//  5.3 proving checking with result `true`
-	if it == nil {
+	if solutions == nil {
 		fmt.Printf("true\n")
 		return
 	}
 
 	//  5.4 result set processing
 	i := 0
-	for res := range it {
+	for sol := range solutions {
 		i += 1
-		fmt.Printf("res #%d: %#v\n", i, res)
+		fmt.Printf("solution #%d: %#v\n", i, sol)
 	}
 }
 
